@@ -1,0 +1,61 @@
+/* p code,
+li code,
+span code {
+    background-color: #f9f2f4;
+    color: #c7254e;
+    word-wrap: break-word;
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+pre,
+pre code,
+.highlight pre,
+.highlight pre code {
+    padding: 1em;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: 'JetBrains Mono', monospace;
+    overflow: auto;
+} */
+
+p code,
+li code,
+span code {
+    background-color: #f9f2f4;
+    color: #c7254e;
+    word-wrap: break-word;
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+pre,
+pre code,
+.highlight pre,
+.highlight pre code {
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: 'JetBrains Mono', monospace;
+    overflow: auto;
+}
+
+/* .kira-body { */
+/* background-image: url('/assets/pics/bg2.jpg'); */
+/* 设置自定义背景图 */
+
+/* background-color: inherit; */
+/* 继承背景颜色 */
+/* background: inherit; */
+/* 继承其他背景属性 */
+/* background-size: cover; */
+/* 让背景图覆盖整个区域 */
+/* background-position: center; */
+/* 背景图居中显示 */
+/* background-repeat: no-repeat; */
+/* 不重复背景图 */
+/* }  */

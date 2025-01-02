@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "kirafont"; /* Project id 4631397 */
+  src: url('iconfont.woff2?t=1721796434759') format('woff2'),
+       url('iconfont.woff?t=1721796434759') format('woff'),
+       url('iconfont.ttf?t=1721796434759') format('truetype');
+}
+
+.kirafont {
+  font-family: "kirafont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-discord:before {
+  content: "\e60b";
+}
+
+.icon-twitter:before {
+  content: "\e60f";
+}
+
+.icon-tieba:before {
+  content: "\e610";
+}
+
+.icon-bilibili:before {
+  content: "\e609";
+}
+
+.icon-telegram:before {
+  content: "\e60c";
+}
+
+.icon-github:before {
+  content: "\e60a";
+}
+
+.icon-zhihu:before {
+  content: "\e60d";
+}
+
+.icon-pixiv:before {
+  content: "\e60e";
+}
+
