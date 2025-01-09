@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html 
+	lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> win11装机笔记 -  走线联络站</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" /> -->
+		<!-- <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script> -->
+		
+<link rel="stylesheet" href="/lib/mdui/mdui.min.css">
+
+		
+<script src="/lib/mdui/mdui.min.js"></script>
+
+		<!-- lazyload -->
+		
+<script src="/lib/lazysizes.js"></script>
+
+		<!-- smooth-scrolling -->
+		
+<script src="/lib/smooth-scrolling.js"></script>
+
+		<!-- highlight -->
+		
+<link rel="stylesheet" href="/lib/highlight/atom-one-dark.min.css">
+
+		
+<script src="/lib/highlight/highlight.min.js"></script>
+
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+			<link rel="stylesheet" href="/assets/font_ext/iconfont.css" crossorigin />
+		
+		<link
+			rel="shortcut icon"
+			href="/assets/pics/ico.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/css/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('/assets/pics/bg3.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="走线联络站">
+        <img
+			src="/assets/pics/ave2.png"
+			alt="Pilliaredrw"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a href="/assets/pics/ave2.png" title="Pilliaredrw">
+			<img
+				src="/assets/pics/ave2.png"
+				alt="Pilliaredrw"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>16</div>
+		<div><span>标签</span>13</div>
+		<div><span>分类</span>0</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="联络站首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				联络站首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/1649952188"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://x.com/pilliaredrw"
+				target="_blank"
+				mdui-tooltip="{content: 'Twitter'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-twitter
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://t.me/tsu_zu"
+				target="_blank"
+				mdui-tooltip="{content: 'Telegram'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-telegram
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/pilliaredrw/"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://tieba.baidu.com/home/main?id=tb.1.9e11ebcf.yJMbYDjnTkgZAgeTczkWyg"
+				target="_blank"
+				mdui-tooltip="{content: '百度贴吧'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-tieba
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://www.pixiv.net/users/33323127"
+				target="_blank"
+				mdui-tooltip="{content: 'Pixiv'}"
+				style="color: rgb(0, 150, 250); background-color: rgba(0, 150, 250, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-pixiv
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">C语言</a> <a href="/tags/Debian/" style="font-size: 16px;">Debian</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/kde/" style="font-size: 10px;">kde</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows11/" style="font-size: 10px;">windows11</a> <a href="/tags/%E4%B8%B2/" style="font-size: 10px;">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16px;">二叉树</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18px;">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 10px;">服务器管理</a> <a href="/tags/%E7%81%8C%E6%B0%B4/" style="font-size: 14px;">灌水</a> <a href="/tags/%E7%8E%A9%E7%94%B5%E8%84%91/" style="font-size: 20px;">玩电脑</a>
+		</div>
+		
+	</div>
+
+
+		
+			
+	<div class="kira-widget-wrap">
+		<h3 class="kira-widget-title">
+			文章归档
+		</h3>
+		<div class="kira-widget">
+			<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a><span class="archive-list-count">14</span></li></ul>
+		</div>
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2025
+		<a href="/">Pilliaredrw</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+<link rel="stylesheet" href="/css/kira-code-copy.css">
+
+	
+<script src="/js/kira-code-copy.js"></script>
+
+
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="/assets/pics/bg3.jpg"
+				data-sizes="auto"
+				alt="win11装机笔记"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>win11装机笔记</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2025年01月07日</a>
+			<a><i class="kirafont icon-edit-fill"></i>3.5k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 15 分钟</a>
+		</div>
+		<h2><span id="u盘选购需要考虑的参数">U盘选购需要考虑的参数</span></h2>
+<h2><span id="选择合适的方式-peiso">选择合适的方式, PE/ISO?</span></h2>
+<h2><span id="重装后的一系列设置windows1124h2">重装后的一系列设置(Windows11
+24H2)</span></h2>
+<p><strong>此帖长期更新.</strong></p>
+<h3><span id="日常软件">日常软件</span></h3>
+<p><strong>软件安装方式</strong>: 有大数据包的安装在D,
+其他在C.<em>(当双盘位, 一块盘给C, 另一块给D时)</em></p>
+<p><em>由于没有正确完成安装, 先删除PE安装第二阶段残留的 Windows Vista
+引导. 使用 Win+R+msconfig 管理 Windows Boot Manager 的启动项.</em></p>
+<ol type="1">
+<li><p>初始调整</p>
+<ul>
+<li>设置任务启动器居左</li>
+<li>关闭搜索</li>
+<li>关闭天气</li>
+<li>关闭小组件(广告)</li>
+<li>调整 win+E 打开时直接打开传统页面,
+<code>文件夹选项-常规-打开文件资源管理器时打开-此电脑</code>阿斯达</li>
+<li>校准 windows 时钟(右下角时钟在刚刚装上之后往往不准.
+而本地时间不同于网络时间会导致某些网站/CDN无法访问,
+导致无法访问/网站错误(例如CDN缺失导致没有任何样式))</li>
+<li>调整桌面图标:<code>个性化-主题-桌面图标设置</code></li>
+<li><strong>关闭快速启动:</strong>控制面板 → 电源选项 →
+选择电源按钮的功能 (窗口左边按钮) → 更改当前不可用的设置 → 启用快速启动,
+取消勾选. <em>(对于当今的 M2 固态, 快速启动已经没有大用,
+并且会造成linux+windows系统无法读写ntfs区,
+以及双windows系统导致关机者被另一系统当做磁盘碎片全部整理进入
+found.000)</em></li>
+</ul></li>
+<li><p>下载安装 Nvidia App (集成的N卡驱动),
+可能需要较久时间下载更新.(*需要重启)</p>
+<ul>
+<li>安装升级 NvidiaGameReady
+显卡驱动(对如果存在的原有驱动进行升级/安装).</li>
+<li>关闭 alt+Z 的 Nvidia 信息视窗.</li>
+</ul></li>
+<li><p>下载 QQ(D), 传过来翻墙环境.例如QQ这种携带大量数据的软件,
+可以把数据放在非系统盘例如
+D:usr/Tencent...(有朝一日重装系统不必费大力搬运大量小文件)</p>
+<ul>
+<li>导入QQ聊天记录(如果有), 可以通过直接覆盖目录完成.</li>
+<li><a href="liteloaderqqnt.github.io">安装liteloader</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LiteLoaderQQNT/QQNTFileVerifyPatch/tree/DLLHijackMethod">在QQ.exe存在的位置加入dbghelp.dll</a></li>
+<li>applaunch那一套.参考文档</li>
+</ul></li>
+<li><p>下载微软通用运行库(可以去果壳找"微软通用运行库")(由于 clash verge
+rev 缺运行库)(*需要重启)</p></li>
+<li><p>下载火绒(C)以关闭 WD</p></li>
+<li><p>在 Windows安全中心-应用和浏览器控制-基于声誉的保护-检查应用和文件
+关闭 WD 的 smartscreen(防止运行 exe 时候阻止你)</p></li>
+<li><p>配置 clash verge rev:
+检查内核版本-设置开机启动-设置静默启动-修改混合代理端口为传统的
+7890</p></li>
+<li><p>安装 Chrome(C),设置为默认浏览器.</p>
+<ul>
+<li>常用油猴脚本: 推特下载图片视频<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/501542-twitter-x-%E1%B4%BE%CB%A1%E1%B5%98%CB%A2-youtube%E1%B4%BE%CB%A1%E1%B5%98%CB%A2">Twitter(X)ᴾˡᵘˢ+++
+; Youtubeᴾˡᵘˢ+++</a>, 油管工具<a target="_blank" rel="noopener" href="https://greasyfork.org/zh-CN/scripts/460680-youtube-tools-all-in-one-local-download-mp3-mp4-higt-quality-return-dislikes-and-more">outube
+工具 多合一本地下載 MP4、MP3</a></li>
+<li>浏览器脚本:<a target="_blank" rel="noopener" href="https://immersivetranslate.com/zh-Hans/">沉浸式翻译</a></li>
+</ul></li>
+<li><p>安装 Snipaste(有 portable 版本, 入库一下)</p>
+<ul>
+<li>首选项-截屏-行为-自动监测界面元素关闭(捕获整个窗口或整个屏幕而不是某个窗口的某个元素)</li>
+<li>设置开机启动</li>
+</ul></li>
+<li><p>安装 7zip(C)</p></li>
+<li><p>下载 2345看图王和<del>2345压缩(去广告)</del>
+(可以去果壳找破解),设置为默认图片浏览器<del>和解压</del>.</p>
+<ul>
+<li>破解后的2345压缩不好用(图标我不喜欢),已改用 360压缩国际版</li>
+</ul></li>
+<li><p>安装 搜狗输入法9.7 (10以后的版本无法安装皮肤), 双击安装皮肤.</p>
+<ul>
+<li>搜狗输入法设置-高级-禁用全部快捷键</li>
+<li>禁用微软输入法: 更多键盘设置-&lt;语言&gt;语言选项-键盘-删除微软键盘.</li>
+<li>首选语言-添加语言:安装English(US)设置为首选输入法.(方便游戏)</li>
+<li>同上, 添加日文输入法.</li>
+<li>*修改系统编码为UTF-8: 管理语言设置-更改系统区域设置-Beta版使用
+UTF-8(慎重, 会有bug.因为现在大部分人还是gbk模式)</li>
+</ul></li>
+<li><p>钉钉(C), wyy(C), 微信(D), pandoc(C)</p></li>
+<li><p>ACER触摸板驱动</p></li>
+</ol>
+<h3><span id="办公软件">办公软件</span></h3>
+<ol type="1">
+<li><p>office(C) 破解使用 LKY OfficeTools(图形界面为 mocreaker )</p>
+<ul>
+<li>随便打开一个office产品-账户-产品信息 查看破解情况.</li>
+<li>设置自动主题:账户-office主题-使用系统设置.</li>
+<li>打开:视图-缩放-多页 方便阅读.</li>
+</ul></li>
+<li><p>Adobe</p></li>
+<li><p>百度网盘(%APPDATA%)</p></li>
+</ol>
+<ul>
+<li>安装后:进入:设置-启动设置-启动-在我的电脑中显示百度网盘,取消勾选.</li>
+</ul>
+<ol start="4" type="1">
+<li><p>阿里网盘(%APPDATA%)</p>
+<ul>
+<li>占用不算大, 不管%APPDATA%了.</li>
+<li>设置-自动启动 关闭自启动, 同位置关闭悬浮球.</li>
+</ul></li>
+</ol>
+<h3><span id="系统软件">系统软件</span></h3>
+<ol type="1">
+<li><p>todesk(C), obs(C),</p></li>
+<li><p>diskgenius, cystalDiskInfo,WinBtrfs,
+everything(Portable)</p></li>
+</ol>
+<h3><span id="开发工具">开发工具</span></h3>
+<p><em>提示:对于 vscode 而言,需要重启 vscode
+而不是终端才能更新环境变量.</em></p>
+<ol type="1">
+<li><p>打开sudo: 设置-系统-开发者选项-启用sudo(内联)</p></li>
+<li><p>安装 git (C)</p></li>
+<li><p>安装
+vscode(C)(管理员权限和用户权限的区别),用来处理代码学习</p></li>
+<li><p>安装 vs(C)用来开发 winform</p></li>
+<li><p>安装 idea社区版(C) 用来 java</p></li>
+<li><p>安装 nvm(C) 适应不同版本 nodejs (C)</p>
+<ul>
+<li>安装目前的最新版本:<code>jabba install lts</code></li>
+<li>使用:<code>jabba use &lt;pkgname&gt;</code></li>
+</ul></li>
+<li><p>安装 mingGW (C)</p>
+<ul>
+<li>介绍:mingW64是基于mingW32的升级, 32废弃了.这是一套源代码,
+需要自行编译.官方wiki给出了各 linux 发行版以及 windows 平台可行的编译包,
+可以下载<a target="_blank" rel="noopener" href="https://github.com/niXman/mingw-builds-binaries">其他人编译好的版本</a></li>
+<li>下载解压之后添加进入环境变量.</li>
+</ul></li>
+<li><p>安装 navicat社区版(C)</p></li>
+<li><p>安装 python 环境(C)</p></li>
+<li><p>安装 jabba(C) 控制 java
+环境(缺点:每次使用之前需要<code>jabba use</code>来让当前终端使用
+java)</p>
+<ul>
+<li>运行安装 jabba.</li>
+</ul></li>
+</ol>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ps1"><br>[<span class="hljs-type">Net.ServicePointManager</span>]::SecurityProtocol = [<span class="hljs-type">Net.SecurityProtocolType</span>]::Tls12<br><span class="hljs-built_in">Invoke-Expression</span> (<br>  <span class="hljs-built_in">Invoke-WebRequest</span> https://github.com/shyiko/jabba/raw/master/install.ps1 <span class="hljs-literal">-UseBasicParsing</span><br>).Content<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>寻找版本:<code>jabba ls-remote|findstr &lt;ver&gt;</code></li>
+<li>安装:<code>jabba install &lt;pkgname&gt;</code></li>
+<li>临时使用:<code>jabba use &lt;pkgname&gt;</code></li>
+<li>设为默认:<code>jabba alias default &lt;pkgname&gt;</code></li>
+<li>日常直接使用上述默认:<code>jabba use</code></li>
+</ul>
+<ol start="11" type="1">
+<li><p>安装 mysql(C).</p></li>
+<li><p>打开 WSL:</p>
+<ul>
+<li>win+Q 搜索<code>启用或关闭 Windows 功能</code>, 打开 Hyper-V,
+适用于什么的Linux的什么子系统你懂的, 勾选二者后重启, 并且在 ps
+中使用<code>wsl.exe --update</code>等待完成更新.</li>
+<li><code>设置-系统-开发者选项- 开发人员模式</code>开启.</li>
+<li>使用<code>wsl -l</code>列举当前已安装的发行版,
+<code>wsl --list --online</code>列举可以安装哪些发行版.</li>
+<li><code>wsl --install -d &lt;name_of_the_release&gt;</code>安装特定的发行版.</li>
+</ul></li>
+</ol>
+<h3><span id="美化">美化</span></h3>
+<p><em>由于大多篇幅较大, 因此需要单开标题.</em></p>
+<h4><span id="安装-oh-my-posh">安装 oh-my-posh</span></h4>
+<p><em>在这里, 由于 ps7 相对于 ps5 自带 PSReadLine2.1+
+的历史自动补全功能, oh-my-posh3 为了跨平台性能更低, 因此使用 ps7 +
+oh-my-posh2(区别于使用Go编写的oh-my-posh3)的组合.</em></p>
+<ol type="1">
+<li><p>一些安装前的准备(用到的命令:<code>Get-Module</code>,<code>Install-Module</code>)</p>
+<ul>
+<li>检查当前 ps 版本<code>$PSVersionTable</code></li>
+<li>列出(全部)包名<code>Get-Module -ListAvailable|findstr &lt;pkgname&gt;</code></li>
+<li>安装 <a target="_blank" rel="noopener" href="https://github.com/PowerShell/PowerShell">ps7</a>, ps7
+自带 PSReadLine2.1 以上(可以方向右键提示-补全历史)</li>
+<li>在以上安装完 ps7 之后, 区别于系统自带的 ps5,ps7 默认会在 C
+盘下的<code>Program files</code>下.并且 ps5 不会消失, 需要手动添加 ps7
+路径到环境变量, 此后就直接 win+R 运行 pwsh 即可(ps7 主程序叫
+pwsh.exe).另外需要额外配置 windows terminal 的 powershell-命令行 和
+启动-默认配置文件 两个项目, 在这里不再赘述.</li>
+</ul></li>
+<li><p>配置 oh-my-posh2</p>
+<ul>
+<li>设置信任源<code>Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted</code></li>
+<li>安装 posh-git
+支持<code>Install-Module posh-git -Scope CurrentUser</code></li>
+<li>指定版本安装 oh-my-posh
+<code>Install-Module oh-my-posh -Scope CurrentUser -RequiredVersion 2.0.496</code></li>
+<li>安装 <a target="_blank" rel="noopener" href="https://www.nerdfonts.com/font-downloads">nerd
+font</a></li>
+<li>浏览可以使用的主题<code>Get-Theme</code>(这里只有文字输出, 在<a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/themes">官方文档</a>有样例可以先看看,
+虽然都是 posh3, 但是几乎包含了全部 posh2 主题)</li>
+<li><code>notepad $PROFILE</code>添加以下环境变量,
+在此之后再<code>. $PROFILE</code>刷新终端.</li>
+</ul></li>
+</ol>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ps1"><br><span class="hljs-built_in">Import-Module</span> posh<span class="hljs-literal">-git</span> <span class="hljs-comment"># 引入 posh-git</span><br><span class="hljs-built_in">Import-Module</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> <span class="hljs-comment"># 引入 oh-my-posh</span><br><br><span class="hljs-comment"># Set-Theme &lt;the_theme_you_want&gt; # 设置主题</span><br><br><span class="hljs-built_in">Set-PSReadLineOption</span> <span class="hljs-literal">-PredictionSource</span> <span class="hljs-built_in">History</span> <span class="hljs-comment"># 设置预测文本来源为历史记录</span><br> <br><span class="hljs-built_in">Set-PSReadlineKeyHandler</span> <span class="hljs-literal">-Key</span> Tab <span class="hljs-literal">-Function</span> Complete <span class="hljs-comment"># 设置 Tab 键补全</span><br><span class="hljs-built_in">Set-PSReadLineKeyHandler</span> <span class="hljs-literal">-Key</span> <span class="hljs-string">"Ctrl+d"</span> <span class="hljs-literal">-Function</span> MenuComplete <span class="hljs-comment"># 设置 Ctrl+d 为菜单补全和 Intellisense</span><br><span class="hljs-built_in">Set-PSReadLineKeyHandler</span> <span class="hljs-literal">-Key</span> <span class="hljs-string">"Ctrl+z"</span> <span class="hljs-literal">-Function</span> Undo <span class="hljs-comment"># 设置 Ctrl+z 为撤销</span><br><span class="hljs-built_in">Set-PSReadLineKeyHandler</span> <span class="hljs-literal">-Key</span> UpArrow <span class="hljs-literal">-Function</span> HistorySearchBackward <span class="hljs-comment"># 设置向上键为后向搜索历史记录</span><br><span class="hljs-built_in">Set-PSReadLineKeyHandler</span> <span class="hljs-literal">-Key</span> DownArrow <span class="hljs-literal">-Function</span> HistorySearchForward <span class="hljs-comment"># 设置向下键为前向搜索历史纪录</span><br><br></code></pre></td></tr></table></figure>
+<p>美化, steam, PS, AE, PR, 3dmaxsql,</p>
+<h4><span id="修改注册传统右键">修改/注册传统右键</span></h4>
+<ol type="1">
+<li><p>需要用到的工具</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://winaero.com/download-regownershipex/">RegOwnershipEx</a>解除部分注册表项的编辑权限.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.angusj.com/resourcehacker/#download">ResourceHacker</a>编辑系统dll文件.</p></li>
+</ul></li>
+<li><p>如图资源管理器右键的<code>在此处打开powershell</code>,
+寻找到其注册表项结构如下(由于系统设置项相比静态字符多了一层抽象,
+难以通过搜索字符获得, 因此可以通过寻找其上下的静态邻居来间接找到它.
+例如在这里可以通过寻找idea和vscode的位置来找到,
+尤其不要和"右键文件"和"右键(资源管理器中的)文件夹"相混淆).</p></li>
+<li><p>最终查资料<del>问ai</del>得到如下解释. 其中有两项带了很多 magic
+number, 日后或许能用到.</p></li>
+</ol>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ini"><br>Windows Registry Editor Version 5.00<br><br><span class="hljs-section">[HKEY_CLASSES_ROOT\Directory\Background\shell\Powershell]</span><br>@="@shell32.dll,-8508" <span class="hljs-comment">; 此键表示在右键菜单显示的文本内容,-8508是从shell32.dll中加载的资源编号,显示为"在此处打开 PowerShell 窗口".</span><br><span class="hljs-attr">"Extended"</span>=<span class="hljs-string">""</span> <span class="hljs-comment">; 设置为"扩展"模式,只有按住 Shift 键右键时才会显示此选项.</span><br><span class="hljs-attr">"NoWorkingDirectory"</span>=<span class="hljs-string">""</span> <span class="hljs-comment">; 禁用自动设置工作目录,确保 PowerShell 在打开时不会默认切换到右键点击的文件夹路径.</span><br><span class="hljs-attr">"ShowBasedOnVelocityId"</span>=dword:<span class="hljs-number">00639</span>bc8 <span class="hljs-comment">; 控制菜单显示条件的标志</span><br><br><span class="hljs-section">[HKEY_CLASSES_ROOT\Directory\Background\shell\Powershell\command]</span><br>@="powershell.exe -noexit -command Set-Location -literalPath \"%V\"" <span class="hljs-comment">; 配置PowerShell的启动命令,打开后不退出 (-noexit),并将目录设置为当前右键点击的背景文件夹路径.</span><br><br></code></pre></td></tr></table></figure>
+<ol start="4" type="1">
+<li><p><code>@="@shell32.dll,-8508"</code></p>
+<ul>
+<li>在右键中设置该项, 可以把这个项目名设置为 windows
+写死的字符串(应该是为了适配国际化).
+这里的<code>@</code>表示注册表键值的数据部分,引用了<strong>shell32.dll</strong>资源中的本地化字符串.<code>-8508</code>是特定资源编号,对应右键菜单显示的文本内容.
+在这里指定右键菜单的显示文本,系统根据语言设置从<code>shell32.dll</code>中加载资源编号<code>-8508</code>.
+最终显示为"在此处打开 PowerShell 窗口".</li>
+<li>当设置<code>@="@其他DLL文件,资源编号"</code>:可以引用其他DLL文件的资源.
+例如下面这些.
+<ul>
+<li><code>-8506</code>:打开命令提示符</li>
+<li><code>-8508</code>:在此处打开 PowerShell 窗口</li>
+<li><code>-22022</code>:属性</li>
+<li><code>-22592</code>:新建文件夹</li>
+<li><code>-30551</code>:共享</li>
+<li><code>-31415</code>:还原之前的版本</li>
+<li><code>-31812</code>:扫描文件(Windows Defender)</li>
+</ul></li>
+</ul></li>
+<li><p><code>"ShowBasedOnVelocityId"=dword:00639bc8</code></p>
+<ul>
+<li>按标志位选中某些上下文, 从而控制在该上下文中右键该功能是否可见.
+用于控制右键菜单项的显示条件.<code>dword:00639bc8</code>是一个特定的标志值,由系统预定义来决定菜单项在某些上下文中是否可见.</li>
+<li>让ai列举了一下其他可用的标志位.
+<ul>
+<li><code>dword:00000000</code>
+隐藏该菜单项,无论在哪种上下文环境下都不显示.<br>
+</li>
+<li><code>dword:00639bc8</code>
+常见的标志值,通常用于标准文件夹背景菜单项的显示.在多数场景下都可见.<br>
+</li>
+<li><code>dword:00040100</code>
+限制菜单项仅在特定资源管理器环境中可见,例如当用户在某些虚拟文件夹(如库、网络)中操作时.<br>
+</li>
+<li><code>dword:00809030</code>
+仅在右键单击"此电脑"或"我的电脑"时显示菜单项.<br>
+</li>
+<li><code>dword:003D0900</code> 菜单项仅在回收站上下文中可见.<br>
+</li>
+<li><code>dword:002D0002</code>
+仅在用户操作"网络"或"网络邻居"相关的资源时显示.<br>
+</li>
+<li><code>dword:00180001</code>
+菜单项仅在选择某些特定类型的文件(如图像文件)时显示.<br>
+</li>
+<li><code>dword:00400500</code>
+仅当选择的目标是快捷方式文件时显示菜单项.<br>
+</li>
+<li><code>dword:00380000</code>
+在"控制面板"上下文中显示菜单项,适用于管理型工具.<br>
+</li>
+<li><code>dword:00645C80</code>
+仅在使用远程桌面连接操作资源时显示菜单项.<br>
+</li>
+<li><code>dword:00200100</code> 仅当目标是网络打印机时显示菜单项.</li>
+</ul></li>
+</ul></li>
+<li><p>另外还有类似的比如自家 vs2022
+的名称项引用也是特殊的<code>@C:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\2052\VSLauncherUI.dll,-1002</code></p></li>
+<li><p>正好在这里记录一下我本机的注册表目前都改了什么内容,
+主要想法就是把长的变短,
+没必要的就直接删除(尽量不要在注册表里面删,去火绒-右键管理里面关闭就可以了)</p>
+<ul>
+<li>默认 powershell5 的右键菜单改为 powershell7,
+<code>计算机\HKEY_CLASSES_ROOT\Directory\Background\shell\Powershell\command</code>:
+修改 <code>powershell.exe</code> 为
+<code>C:\Program Files\PowerShell\7-preview\pwsh.exe</code></li>
+<li>VS2022 启动的名字太长, 自己写一个.
+<code>计算机\HKEY_CLASSES_ROOT\Directory\Background\shell\AnyCode</code>:
+修改
+<code>@C:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\2052\VSLauncherUI.dll,-1002</code>
+为 <code>VS here</code></li>
+<li>wsl 名称位置修改<code>@wsl.exe,-2</code>为
+<code>openSUSE here</code></li>
+<li>关于 idea 的三个项目不再赘述.</li>
+</ul></li>
+</ol>
+<h4><span id="修改资源管理器">修改资源管理器</span></h4>
+<ul>
+<li><p><del><a target="_blank" rel="noopener" href="https://github.com/RoundedTB/RoundedTB">RoundTB</a>
+设置任务栏圆角.</del>有人说有<a target="_blank" rel="noopener" href="https://www.reddit.com/r/Windows11/comments/ozpuh9/you_can_make_the_taskbar_transparent_with_a/">更好的代替</a>但我还没尝试</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Maplespe/ExplorerBlurMica">ExplorerMicaBlur</a>
+设置资源管理器透明.</p></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/valinet/ExplorerPatcher">ExplorerPatcher</a>(在win11恢复磁贴功能)
+配合 <a target="_blank" rel="noopener" href="https://github.com/XIU2/TileTool">TileTool</a>(自定义磁贴图标)
+设置磁贴.</p></li>
+<li><p>桌面小组件可以使用 <a target="_blank" rel="noopener" href="https://www.rainmeter.net/discover/">Rainmeter</a>,
+不过目前没需求.</p></li>
+</ul>
+<h3><span id="其他">其他</span></h3>
+<ol type="1">
+<li>PS 配置在本地可以运行脚本</li>
+</ol>
+<figure class="highlight ps1"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ps1"><br><span class="hljs-built_in">PS</span> C:\Users\Administrator\.jabba&gt; C:\Users\Administrator\.jabba\jabba.ps1<br>C:\Users\Administrator\.jabba\jabba.ps1 : 无法加载文件 C:\Users\Administrator\.jabba\jabba.ps1,因为在此系统上禁止运行<br>脚本.有关详细信息,请参阅 https:/go.microsoft.com/fwlink/?LinkID=<span class="hljs-number">135170</span> 中的 about_Execution_Policies.<br>所在位置 行:<span class="hljs-number">1</span> 字符: <span class="hljs-number">1</span><br>+ C:\Users\Administrator\.jabba\jabba.ps1<br>+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>    + CategoryInfo          : SecurityError: (:) [],PSSecurityException<br>    + FullyQualifiedErrorId : UnauthorizedAccess<br><span class="hljs-built_in">PS</span> C:\Users\Administrator\.jabba&gt; <span class="hljs-built_in">get-executionpolicy</span><br>Restricted<br><span class="hljs-built_in">PS</span> C:\Users\Administrator\.jabba&gt; <span class="hljs-built_in">set-executionpolicy</span> remotesigned<br><span class="hljs-built_in">PS</span> C:\Users\Administrator\.jabba&gt; <span class="hljs-built_in">get-executionpolicy</span><br>RemoteSigned<br><span class="hljs-built_in">PS</span> C:\Users\Administrator\.jabba&gt;<br><br></code></pre></td></tr></table></figure>
+
+	</article>
+
+	 
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/windows/" rel="tag">windows</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/windows11/" rel="tag">windows11</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/%E7%8E%A9%E7%94%B5%E8%84%91/" rel="tag">玩电脑</a>
+		
+	</div>
+	
+	<div class="kira-post-footer">
+		
+
+		
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>

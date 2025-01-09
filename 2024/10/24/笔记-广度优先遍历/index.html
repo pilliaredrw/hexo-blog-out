@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html 
+	lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 笔记:广度优先遍历 -  走线联络站</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" /> -->
+		<!-- <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script> -->
+		
+<link rel="stylesheet" href="/lib/mdui/mdui.min.css">
+
+		
+<script src="/lib/mdui/mdui.min.js"></script>
+
+		<!-- lazyload -->
+		
+<script src="/lib/lazysizes.js"></script>
+
+		<!-- smooth-scrolling -->
+		
+<script src="/lib/smooth-scrolling.js"></script>
+
+		<!-- highlight -->
+		
+<link rel="stylesheet" href="/lib/highlight/atom-one-dark.min.css">
+
+		
+<script src="/lib/highlight/highlight.min.js"></script>
+
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+			<link rel="stylesheet" href="/assets/font_ext/iconfont.css" crossorigin />
+		
+		<link
+			rel="shortcut icon"
+			href="/assets/pics/ico.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/css/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('/assets/pics/bg3.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="走线联络站">
+        <img
+			src="/assets/pics/ave2.png"
+			alt="Pilliaredrw"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a href="/assets/pics/ave2.png" title="Pilliaredrw">
+			<img
+				src="/assets/pics/ave2.png"
+				alt="Pilliaredrw"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>16</div>
+		<div><span>标签</span>13</div>
+		<div><span>分类</span>0</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="联络站首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				联络站首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/1649952188"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://x.com/pilliaredrw"
+				target="_blank"
+				mdui-tooltip="{content: 'Twitter'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-twitter
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://t.me/tsu_zu"
+				target="_blank"
+				mdui-tooltip="{content: 'Telegram'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-telegram
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/pilliaredrw/"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://tieba.baidu.com/home/main?id=tb.1.9e11ebcf.yJMbYDjnTkgZAgeTczkWyg"
+				target="_blank"
+				mdui-tooltip="{content: '百度贴吧'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-tieba
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://www.pixiv.net/users/33323127"
+				target="_blank"
+				mdui-tooltip="{content: 'Pixiv'}"
+				style="color: rgb(0, 150, 250); background-color: rgba(0, 150, 250, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-pixiv
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">C语言</a> <a href="/tags/Debian/" style="font-size: 16px;">Debian</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/kde/" style="font-size: 10px;">kde</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows11/" style="font-size: 10px;">windows11</a> <a href="/tags/%E4%B8%B2/" style="font-size: 10px;">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16px;">二叉树</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18px;">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 10px;">服务器管理</a> <a href="/tags/%E7%81%8C%E6%B0%B4/" style="font-size: 14px;">灌水</a> <a href="/tags/%E7%8E%A9%E7%94%B5%E8%84%91/" style="font-size: 20px;">玩电脑</a>
+		</div>
+		
+	</div>
+
+
+		
+			
+	<div class="kira-widget-wrap">
+		<h3 class="kira-widget-title">
+			文章归档
+		</h3>
+		<div class="kira-widget">
+			<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a><span class="archive-list-count">14</span></li></ul>
+		</div>
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2025
+		<a href="/">Pilliaredrw</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+<link rel="stylesheet" href="/css/kira-code-copy.css">
+
+	
+<script src="/js/kira-code-copy.js"></script>
+
+
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="/assets/pics/bg3.jpg"
+				data-sizes="auto"
+				alt="笔记:广度优先遍历"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>笔记:广度优先遍历</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年10月24日</a>
+			<a><i class="kirafont icon-edit-fill"></i>621 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 2 分钟</a>
+		</div>
+		<h2><span id="层序遍历">层序遍历</span></h2>
+<h3><span id="实现一个链队列">实现一个链队列</span></h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">QNode</span></span><br><span class="hljs-class">{</span><br>    TreeNode *e;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">QNode</span> *<span class="hljs-title">next</span>;</span><br>} QNode;<br><span class="hljs-comment">// 这个为了实现链队列存取Treenode结点</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Quece</span></span><br><span class="hljs-class">{</span><br>    QNode *f, *r;<br>    <span class="hljs-type">int</span> Qsize;<br>} Quece;<br><span class="hljs-comment">// 定义队列本身的结构体. 修改队列只能通过f, r指针进行.</span><br><br><span class="hljs-comment">// Q构造函数</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">InitQ</span><span class="hljs-params">(Quece **q, <span class="hljs-type">int</span> size)</span><br>{<br>    *q = (Quece *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Quece));<br>    <span class="hljs-comment">// 初始化第一步: 建立队列.</span><br>    (*q)-&gt;f = (*q)-&gt;r = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    (*q)-&gt;f-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 初始化第二步: 建立带头单链表.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br><span class="hljs-comment">// Q判空函数</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">isE</span><span class="hljs-params">(Quece *q)</span><br>{<br>    <span class="hljs-keyword">return</span> q-&gt;f == q-&gt;r;<br>}<br><br><span class="hljs-comment">// Q入队函数</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">EnQ</span><span class="hljs-params">(Quece *q, TreeNode *x)</span><br>{<br>    QNode *new_qnode = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    new_qnode-&gt;e = x;<br>    new_qnode-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 1. 创建--初始化一个新队列结点, 准备入队列.</span><br>    q-&gt;r-&gt;next = new_qnode;<br>    <span class="hljs-comment">// 2. 将新结点上传到链上</span><br>    q-&gt;r = new_qnode;<br>    <span class="hljs-comment">// 3. 将队列的尾指针指向新的链尾</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[+]EnQ: %d\n"</span>, x-&gt;id);<br>    <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br><span class="hljs-comment">// Q出队函数</span><br>TreeNode *<span class="hljs-title function_">DeQ</span><span class="hljs-params">(Quece *q)</span><br>{<br>    TreeNode *rec;<br>    <span class="hljs-keyword">if</span> (q-&gt;f == q-&gt;r)<br>    {<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>    }<br>    <span class="hljs-comment">// 特殊情况1: 队元素为0个</span><br>    <span class="hljs-comment">// 判空(当原本的队列事实上只有0个元素, r指向f)</span><br>    QNode *p = q-&gt;f-&gt;next;<br>    rec = p-&gt;e;<br>    <span class="hljs-comment">// 拿出队头数据(f指向带头单链表的头结点)</span><br>    q-&gt;f-&gt;next = p-&gt;next;<br>    <span class="hljs-comment">// 头指针移动到新的队首</span><br>    <span class="hljs-keyword">if</span> (q-&gt;r == p)<br>        q-&gt;r = q-&gt;f;<br>    <span class="hljs-built_in">free</span>(p);<br>    <span class="hljs-comment">// 在链上删除旧的队头结点(出队)</span><br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> rec;<br>}<br><br></code></pre></td></tr></table></figure>
+<h3><span id="定义访问行为">定义访问行为</span></h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 1. 层序遍历(广度优先遍历)</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">visit_1</span><span class="hljs-params">(TreeNode *any_node)</span><br>{<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d ved\n"</span>, any_node-&gt;id);<br>}<br></code></pre></td></tr></table></figure>
+<h3><span id="层序遍历算法">层序遍历算法</span></h3>
+<p>大体上就是从树根结点开始不停进行入队--出队+访问操作.</p>
+<ul>
+<li>入队操作规则: 根结点以外的任何结点的入队,
+都是它的双亲结点的出队所导致的.</li>
+<li>出队操作规则: 出队之后先访问它.
+再把按照左孩子--右孩子的顺序把它的两个孩子放进队列.</li>
+</ul>
+<p>流程如下:</p>
+<ol type="1">
+<li>初始化链式队列, 初始化树一颗.</li>
+<li>根结点入队.</li>
+<li>根结点点出队&amp;&amp;访问根结点.</li>
+<li>根结点的孩子按照规则入队&amp;&amp;出队.</li>
+<li>重复4直到队空.</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-comment">// 1.1. 王道-层序遍历</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">levelOrderTR</span><span class="hljs-params">(TreeNode *root)</span><br>{<br>    Quece *q;<br>    TreeNode *p;<br>    InitQ(&amp;q, <span class="hljs-number">20</span>);<br>    EnQ(q, root);<br>    <span class="hljs-comment">// 1. 根节点放进队列</span><br>    <span class="hljs-keyword">while</span> (!isE(q))<br>    {<br>        p = DeQ(q);<br>        visit_1(p);<br>        <span class="hljs-keyword">if</span> (p-&gt;l)    EnQ(q, p-&gt;l);<br>        <span class="hljs-keyword">if</span> (p-&gt;r)    EnQ(q, p-&gt;r);<br>    }<br>}<br><br></code></pre></td></tr></table></figure>
+
+	</article>
+
+	 
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>
+		
+	</div>
+	
+	<div class="kira-post-footer">
+		
+
+		
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>

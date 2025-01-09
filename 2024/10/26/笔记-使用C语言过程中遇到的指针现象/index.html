@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html 
+	lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 笔记-使用C语言过程中遇到的指针现象 -  走线联络站</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" /> -->
+		<!-- <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script> -->
+		
+<link rel="stylesheet" href="/lib/mdui/mdui.min.css">
+
+		
+<script src="/lib/mdui/mdui.min.js"></script>
+
+		<!-- lazyload -->
+		
+<script src="/lib/lazysizes.js"></script>
+
+		<!-- smooth-scrolling -->
+		
+<script src="/lib/smooth-scrolling.js"></script>
+
+		<!-- highlight -->
+		
+<link rel="stylesheet" href="/lib/highlight/atom-one-dark.min.css">
+
+		
+<script src="/lib/highlight/highlight.min.js"></script>
+
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+			<link rel="stylesheet" href="/assets/font_ext/iconfont.css" crossorigin />
+		
+		<link
+			rel="shortcut icon"
+			href="/assets/pics/ico.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/css/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('/assets/pics/bg3.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="走线联络站">
+        <img
+			src="/assets/pics/ave2.png"
+			alt="Pilliaredrw"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a href="/assets/pics/ave2.png" title="Pilliaredrw">
+			<img
+				src="/assets/pics/ave2.png"
+				alt="Pilliaredrw"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>16</div>
+		<div><span>标签</span>13</div>
+		<div><span>分类</span>0</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="联络站首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				联络站首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/1649952188"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://x.com/pilliaredrw"
+				target="_blank"
+				mdui-tooltip="{content: 'Twitter'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-twitter
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://t.me/tsu_zu"
+				target="_blank"
+				mdui-tooltip="{content: 'Telegram'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-telegram
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/pilliaredrw/"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://tieba.baidu.com/home/main?id=tb.1.9e11ebcf.yJMbYDjnTkgZAgeTczkWyg"
+				target="_blank"
+				mdui-tooltip="{content: '百度贴吧'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-tieba
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://www.pixiv.net/users/33323127"
+				target="_blank"
+				mdui-tooltip="{content: 'Pixiv'}"
+				style="color: rgb(0, 150, 250); background-color: rgba(0, 150, 250, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-pixiv
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 16px;">C语言</a> <a href="/tags/Debian/" style="font-size: 16px;">Debian</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/kde/" style="font-size: 10px;">kde</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/windows11/" style="font-size: 10px;">windows11</a> <a href="/tags/%E4%B8%B2/" style="font-size: 10px;">串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 16px;">二叉树</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18px;">数据结构</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" style="font-size: 10px;">服务器管理</a> <a href="/tags/%E7%81%8C%E6%B0%B4/" style="font-size: 14px;">灌水</a> <a href="/tags/%E7%8E%A9%E7%94%B5%E8%84%91/" style="font-size: 20px;">玩电脑</a>
+		</div>
+		
+	</div>
+
+
+		
+			
+	<div class="kira-widget-wrap">
+		<h3 class="kira-widget-title">
+			文章归档
+		</h3>
+		<div class="kira-widget">
+			<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a><span class="archive-list-count">14</span></li></ul>
+		</div>
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2025
+		<a href="/">Pilliaredrw</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+<link rel="stylesheet" href="/css/kira-code-copy.css">
+
+	
+<script src="/js/kira-code-copy.js"></script>
+
+
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="/assets/pics/bg3.jpg"
+				data-sizes="auto"
+				alt="笔记-使用C语言过程中遇到的指针现象"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>笔记-使用C语言过程中遇到的指针现象</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年10月26日</a>
+			<a><i class="kirafont icon-edit-fill"></i>5.6k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 25 分钟</a>
+		</div>
+		<p>在学对树进行层序遍历的时候写了一个链队列,
+出了个毛病(具体参见后面分析).
+修的时候发现是由于<strong>悬浮指针</strong>导致的,
+而且还造成了内存泄漏(后面所提到的不停地把头结点扔掉现象).</p>
+<p>所谓悬浮指针就是说一个指针指向了法外之地(并未分配给它使用的内存).
+一般会发生在当内存区域被 free 掉了, 但指针未被设置为 NULL
+或其他错误赋值的情况(比如本例).</p>
+<p>还有一个相关概念叫野指针.
+野指针的意思主要是说指针在被第一次赋值之前是指向一个未知区域的(当局部变量未赋值之前,
+编译器不会将其初始化为0.
+这时候里面那个乱七八糟的数就可能会错误地当成地址来用).
+关于悬浮指针的概念可以参考这里<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dangling_pointer" class="uri">https://en.wikipedia.org/wiki/Dangling_pointer</a>.</p>
+<h2><span id="问题代码">问题代码</span></h2>
+<h3><span id="数据结构">数据结构</span></h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> bool int</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span></span><br><span class="hljs-class">{</span><br>    <span class="hljs-type">int</span> id;                 <span class="hljs-comment">// 树的元素. 可以是一个指向实际元素的指针. 这里用一个id简化代替</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TreeNode</span> *<span class="hljs-title">l</span>, *<span class="hljs-title">r</span>;</span> <span class="hljs-comment">// 左右孩子结点. Node实质为一个二叉链表</span><br>    <span class="hljs-type">int</span> tagl, tagr;         <span class="hljs-comment">// 线索二叉树的标志位</span><br>} TreeNode, *Tree;<br><span class="hljs-comment">// 线索二叉链表</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">QNode</span></span><br><span class="hljs-class">{</span><br>    TreeNode *e;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">QNode</span> *<span class="hljs-title">next</span>;</span><br>} QNode;<br><span class="hljs-comment">// 这个为了实现链队列存取Treenode结点</span><br><span class="hljs-comment">// *Qnode: 带头单链表</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Quece</span></span><br><span class="hljs-class">{</span><br>    QNode *f, *r;<br>    <span class="hljs-type">int</span> Qsize;<br>} Quece;<br><span class="hljs-comment">// 定义队列本身的结构体. 修改队列只能通过f, r指针进行.</span><br><span class="hljs-comment">// Quece 使用f和r管理带头单链表</span><br><br></code></pre></td></tr></table></figure>
+<h3><span id="链表方法问题出在出队的实现上">链表方法(问题出在出队的实现上)</span></h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-comment">// Q的遍历print函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">pQ</span><span class="hljs-params">(Quece *q)</span><br>{<br>    QNode *current = q-&gt;f-&gt;next; <span class="hljs-comment">// 跳过队列头节点,因为头节点不包含数据</span><br><br>    <span class="hljs-keyword">if</span> (!current)<br>    {<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Queue is empty.\n"</span>);<br>        getchar();<br>        <span class="hljs-keyword">return</span>;<br>    }<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"目前的队列: "</span>);<br>    <span class="hljs-comment">// printf("second is %d\n", current-&gt;next?current-&gt;next-&gt;e-&gt;id:0);</span><br>    <span class="hljs-keyword">while</span> (current)<br>    {<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d "</span>, current-&gt;e-&gt;id); <span class="hljs-comment">// 打印当前节点的TreeNode的ID</span><br>        current = current-&gt;next;       <span class="hljs-comment">// 移动到下一个队列节点</span><br>    }<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);<br>}<br><br><span class="hljs-comment">// Q构造函数</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">InitQ</span><span class="hljs-params">(Quece **q, <span class="hljs-type">int</span> size)</span><br>{<br>    *q = (Quece *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Quece));<br>    <span class="hljs-comment">// 初始化第一步: 建立队列.</span><br>    (*q)-&gt;f = (*q)-&gt;r = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    (*q)-&gt;f-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 初始化第二步: 建立带头单链表.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br><span class="hljs-comment">// 判空</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">isE</span><span class="hljs-params">(Quece *q)</span><br>{<br>    <span class="hljs-keyword">return</span> q-&gt;f == q-&gt;r;<br>}<br><br><span class="hljs-comment">// 入队</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">EnQ</span><span class="hljs-params">(Quece *q, TreeNode *x)</span><br>{<br>    QNode *new_qnode = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    new_qnode-&gt;e = x;<br>    new_qnode-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 1. 创建--初始化一个新队列结点, 准备入队列.</span><br>    q-&gt;r-&gt;next = new_qnode;<br>    <span class="hljs-comment">// 2. 将新结点上传到链上</span><br>    q-&gt;r = new_qnode;<br>    <span class="hljs-comment">// 3. 将队列的尾指针指向新的链尾</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[+]EnQ: %d\n"</span>, x-&gt;id);<br>    <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br><span class="hljs-comment">// 出队</span><br>TreeNode *<span class="hljs-title function_">DeQ</span><span class="hljs-params">(Quece *q)</span><br>{<br>    TreeNode *rec;<br>    <span class="hljs-keyword">if</span> (q-&gt;f == q-&gt;r)<br>    {<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>    }<br>    <span class="hljs-comment">// 特殊情况1: 队元素为0个</span><br>    <span class="hljs-comment">// 判空(当原本的队列事实上只有0个元素, r指向f)</span><br>    QNode *p = q-&gt;f-&gt;next;<br>    rec = p-&gt;e;<br>    <span class="hljs-comment">// 拿出队头数据(f指向带头单链表的头结点)</span><br>    q-&gt;f-&gt;next = p-&gt;next;<br>    <span class="hljs-comment">// 头指针移动到新的队首</span><br>    <span class="hljs-keyword">if</span> (q-&gt;r == p)<br>        <span class="hljs-comment">// q-&gt;r = q-&gt;f;</span><br>        q-&gt;f = q-&gt;r;<br>    <span class="hljs-comment">// 错误: 手残赋值反了. 这样的后果是, 当输入情况为队中只有2结点(头--e)时, q-&gt;f = q-&gt;r;</span><br>    <span class="hljs-comment">// 特殊情况2: 队元素为1个</span><br>    <span class="hljs-comment">// 当队列即将清空(原本的队列事实上只有1个元素, r指向f-&gt;next)时, 将f和r对齐.</span><br>    <span class="hljs-built_in">free</span>(p);<br>    <span class="hljs-comment">// 在链上删除旧的队头结点(出队)</span><br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> rec;<br>}<br><br></code></pre></td></tr></table></figure>
+<h3><span id="主函数">主函数</span></h3>
+<p>主函数就是一个标准的层序遍历. 用循环的方式来对树的每个结点进行
+<em>被入队--出队--该结点的左右孩子入队</em> 过程.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-comment">// 1. 层序遍历(广度优先遍历)</span><br><span class="hljs-type">bool</span> <span class="hljs-title function_">visit_1</span><span class="hljs-params">(TreeNode *any_node)</span><br>{<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d ved\n"</span>, any_node-&gt;id);<br>}<br><span class="hljs-comment">// 1.1. 王道-层序遍历</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">levelOrderTR</span><span class="hljs-params">(TreeNode *root)</span><br>{<br>    Quece *q;<br>    TreeNode *p;<br>    InitQ(&amp;q, <span class="hljs-number">20</span>);<br>    EnQ(q, root);<br>    <span class="hljs-comment">// 1. 根节点放进队列</span><br>    <span class="hljs-keyword">while</span> (!isE(q))<br>    {<br>        pQ(q);<br>        p = DeQ(q);<br>        visit_1(p);<br>        <span class="hljs-keyword">if</span> (p-&gt;l)<br>        {<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d 左孩子为%d\n"</span>, p-&gt;id, p-&gt;l-&gt;id);<br>            EnQ(q, p-&gt;l);<br>        }<br>        <span class="hljs-keyword">if</span> (p-&gt;r)<br>        {<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d 右孩子为%d\n"</span>, p-&gt;id, p-&gt;r-&gt;id);<br>            EnQ(q, p-&gt;r);<br>        }<br>    }<br>}<br><br><span class="hljs-comment">// 1.1. 测试函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">class1</span><span class="hljs-params">()</span><br>{<br>    levelOrderTR(makeTree(<span class="hljs-number">10</span>));<br>}<br><br></code></pre></td></tr></table></figure>
+<h3><span id="其他函数">其他函数</span></h3>
+<p>把其他用到的函数也放在这里 mark 一下.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>TreeNode *<span class="hljs-title function_">makeNode</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span><br>{<br>    TreeNode *node;<br>    node = (TreeNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(TreeNode));<br>    node-&gt;id = id;<br>    node-&gt;l = node-&gt;r = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">return</span> node;<br>}<br><span class="hljs-comment">// 构造函数(创建一个大小为size的完全二叉树)</span><br>TreeNode *<span class="hljs-title function_">makeTree</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span><br>{<br>    <span class="hljs-type">void</span> **arr = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">void</span> *) * (size + <span class="hljs-number">1</span>));<br>    <span class="hljs-comment">// 用于存储结点指针的指针数组, 以便于批量创建结点</span><br>    <span class="hljs-comment">// 为了对齐下标和id, 在这里多申请一块空间</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= size; i++)<br>    {<br>        arr[i] = makeNode(i);<br>    }<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= size; i++)<br>    {<br>        <span class="hljs-keyword">if</span> (<span class="hljs-number">2</span> * i &lt;= size)<br>            ((TreeNode *)arr[i])-&gt;l = ((TreeNode *)arr[<span class="hljs-number">2</span> * i]);<br>        <span class="hljs-comment">// 当左子id&lt;n, 作为一颗完全二叉树来说左子一定存在. 当左子存在, 将l指向左子.</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-number">2</span> * i + <span class="hljs-number">1</span> &lt;= size)<br>            ((TreeNode *)arr[i])-&gt;r = ((TreeNode *)arr[<span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>]);<br>        <span class="hljs-comment">// 当右子id&lt;n, 作为一颗完全二叉树来说右子一定存在. 当右子存在, 将r指向右子</span><br>    }<br>    printTree((TreeNode *)arr[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>);<br>    TreeNode *root = arr[<span class="hljs-number">1</span>];<br>    <span class="hljs-built_in">free</span>(arr);<br>    <span class="hljs-keyword">return</span> root;<br>}<br><br></code></pre></td></tr></table></figure>
+<h2><span id="分析第一回合">分析(第一回合)</span></h2>
+<p>第一回合是根结点(e=1)的入队和出队.
+我们都知道层序遍历的算法是用循环的方式来对树的每个结点进行
+<em>被入队--出队--该结点的左右孩子入队</em> 过程.
+在这里我口头上将一个<code>while (!isE(q))</code>循环称为一个回合.
+(进入<code>while</code>前的根结点 入队-出队 动作视为第一个回合)</p>
+<p>另外需要先澄清几个名词的不同含义:</p>
+<ol type="1">
+<li>头结点: 链表的头结点(Qnode).</li>
+<li>第一结点: 链表除了头结点以外的第一个元素结点(Qnode).
+以后第n结点以此类推(树的第n结点直接注明树第n结点).</li>
+<li>根结点: 被层序遍历的那棵树的树根结点(Treenode).</li>
+</ol>
+<p>总结为: (头结点-&gt;第一结点-&gt;第二结点-&gt;...-&gt;NULL)</p>
+<h3><span id="产生错误的样子">产生错误的样子</span></h3>
+<p>一颗完全二叉树, 结点编号从 1~10. 本来的想法是层序遍历, 打印 1~10
+出来. 但事实上上面的代码只打印如图的 1, 3, 7.
+并且可以遍历到大部分孩子结点. 如图所示, 可以说是相当诡异.</p>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/TQOW7dcPIl5UFoC.png" alt="0.png" class="lazyload">
+<figcaption aria-hidden="true">0.png</figcaption>
+</figure>
+<h3><span id="断点分布">断点分布</span></h3>
+<p>上 F5 直接开始调试.
+从输出可以明确的是问题一定出在队列数据结构实现上而不是层序遍历算法,
+主要就是不清楚到底是歪在在入队, 出队, 还是初始化上.
+我们在入队(EnQ)和出队(DeQ), 初始化(InitQ)实现算法中分别打断点.</p>
+<ul>
+<li>EnQ实现:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-type">bool</span> <span class="hljs-title function_">EnQ</span><span class="hljs-params">(Quece *q, TreeNode *x)</span><br>{<br>    QNode *new_qnode = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    new_qnode-&gt;e = x;<br>    new_qnode-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 1. 创建--初始化一个新队列结点, 准备入队列.</span><br>B&gt;  q-&gt;r-&gt;next = new_qnode;<br>    <span class="hljs-comment">// 2. 将新结点上传到链上</span><br>    q-&gt;r = new_qnode;<br>    <span class="hljs-comment">// 3. 将队列的尾指针指向新的链尾</span><br>B&gt;  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[+]EnQ: %d\n"</span>, x-&gt;id);<br>    <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>DeQ实现:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>TreeNode *<span class="hljs-title function_">DeQ</span><span class="hljs-params">(Quece *q)</span><br>{<br>    TreeNode *rec;<br>    <span class="hljs-keyword">if</span> (q-&gt;f == q-&gt;r)<br>    {<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>    }<br>    <span class="hljs-comment">// 特殊情况1: 队元素为0个</span><br>    <span class="hljs-comment">// 判空(当原本的队列事实上只有0个元素, r指向f)</span><br>    QNode *p = q-&gt;f-&gt;next;<br>    rec = p-&gt;e;<br>    <span class="hljs-comment">// 拿出队头数据(f指向带头单链表的头结点)</span><br>    q-&gt;f-&gt;next = p-&gt;next;<br>    <span class="hljs-comment">// 头指针移动到新的队首</span><br>B&gt;  <span class="hljs-keyword">if</span> (q-&gt;r == p)<br>        <span class="hljs-comment">// q-&gt;r = q-&gt;f;</span><br>        q-&gt;f = q-&gt;r;<br>    <span class="hljs-comment">// 错误: 手残赋值反了. 这样的后果是, 当输入情况为队中只有2结点(头--e)时, q-&gt;f = q-&gt;r;</span><br>    <span class="hljs-comment">// 特殊情况2: 队元素为1个</span><br>    <span class="hljs-comment">// 当队列即将清空(原本的队列事实上只有1个元素, r指向f-&gt;next)时, 将f和r对齐.</span><br>    <span class="hljs-built_in">free</span>(p);<br>    <span class="hljs-comment">// 在链上删除旧的队头结点(出队)</span><br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> rec;<br>}<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>InitQ实现:</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-type">bool</span> <span class="hljs-title function_">InitQ</span><span class="hljs-params">(Quece **q, <span class="hljs-type">int</span> size)</span><br>{<br>    *q = (Quece *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Quece));<br>    <span class="hljs-comment">// 初始化第一步: 建立队列.</span><br>    (*q)-&gt;f = (*q)-&gt;r = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>B&gt;  (*q)-&gt;f-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 初始化第二步: 建立带头单链表.</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br></code></pre></td></tr></table></figure>
+<p>上述的点布置主要是为了在 hit break 的时候能从窗口监视到指针变量值,
+然后判断链表的当前状态(因为队列打印函数(pQ)也需要遍历链表,
+如果实现有问题, 此时已经不可信. 因此也只能调试).</p>
+<h3><span id="排除正常函数">排除正常函数</span></h3>
+<p>首先介绍一个 gdb 调试方法. 在 gdb
+命令行控制台直接输入<code>x/32xb &lt;变量名&gt;</code>或在 vscode
+调试控制台输入<code>-exec x/32xb &lt;变量名&gt;</code>可以查看目标指针指向点位往后
+32B 区域的二进制.</p>
+<ul>
+<li><code>x/&lt;n&gt;xb</code>格式解释:
+<ul>
+<li><code>/&lt;n&gt;</code> 表示要显示的内存单元数量为n个单位,在这里是
+32 个字节.</li>
+<li><code>x</code> 是显示格式,<code>b</code>
+表示按字节(byte)查看数据.</li>
+</ul></li>
+</ul>
+<h4><span id="initq">InitQ</span></h4>
+<p>InitQ 主要是用来创建头结点的. 也就是下面2个事:</p>
+<ol type="1">
+<li>给队列结构体<code>q</code>分配内存.<em>(创建链表管理指针.
+逻辑上的队列)</em></li>
+<li>给<code>q-&gt;f</code>和<code>q-&gt;r</code>分配一个头结点.<em>(创建链表)</em></li>
+</ol>
+<p>捋到这里, 先来总结一下当前的内存情况.为了方便只看内存的后四位. 拿
+<code>InitQ</code> 的断点首次被撞击时刻的情况来看:</p>
+<ul>
+<li>*q: 队列结构体 <code>*Quece</code> 类型指针的地址(指针的指针),
+已被分配正常的内存为<code>0xD5D0</code>.
+在这之后就用不到了(初始化需要给指针赋值).</li>
+<li>**q: 队列结构体 <code>Quece</code> 类型指针,
+指向<code>0x98F0~0x990F</code>这一块范围的内存(下面有输出可以看).
+<ul>
+<li><code>0x98F0~0x9908</code>: 就是<code>q-&gt;f</code>.
+即<code>q</code>指针所指向的内存<code>0x98F0~0x9908</code>中的<code>0x98f0~0x98f7</code>字段值(<code>555555559910H</code>,
+也就是<code>0x555555559910</code>,
+这里仍然记为<code>0x9910</code>).</li>
+<li><code>0x98F0~0x9908</code>: 就是<code>q-&gt;r</code>.
+即<code>q</code>指针所指向的内存<code>0x98F0~0x9908</code>中的<code>0x98f8~0x98ff</code>字段值.
+同上, 为<code>0x9910</code>. 对比下面 gdb
+二进制输出和图中gdb监视器可以证明.</li>
+<li><code>0x9900~0x990f</code>:
+包含了我没有用到的<code>size</code>和<code>malloc</code>生成的
+<code>padding</code> 填充(内存对齐-内存填充). 最终结果是<code>q</code>,
+<code>q-&gt;f</code>, <code>q-&gt;r</code>,
+<code>q-&gt;next</code>等后面会经常提到的变量事实上各占 32B.</li>
+</ul></li>
+</ul>
+<p><strong><em>(关于内存对齐)备注:</em></strong>
+<em><code>malloc</code>会把堆对齐到某个特定的大小.
+观察<code>q-&gt;f</code>和<code>q-&gt;r</code>所指向的地址之差<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="30.275ex" height="1.731ex" role="img" focusable="false" viewbox="0 -683 13381.6 765"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z"/><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z" transform="translate(500,0)"/><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" transform="translate(1000,0)"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(1500,0)"/></g><g data-mml-node="mi" transform="translate(2000,0)"><path data-c="1D43B" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 219 683Q260 681 355 681Q389 681 418 681T463 682T483 682Q499 682 499 672Q499 670 497 658Q492 641 487 638H485Q483 638 480 638T473 638T464 637T455 637Q416 636 405 634T387 623Q384 619 355 500Q348 474 340 442T328 395L324 380Q324 378 469 378H614L615 381Q615 384 646 504Q674 619 674 627T617 637Q594 637 587 639T580 648Q580 650 582 660Q586 677 588 679T604 682Q609 682 646 681T740 680Q802 680 835 681T871 682Q888 682 888 672Q888 645 876 638H874Q872 638 869 638T862 638T853 637T844 637Q805 636 794 634T776 623Q773 618 704 340T634 58Q634 51 638 51Q646 48 692 46H723Q729 38 729 37T726 19Q722 6 716 0H701Q664 2 567 2Q533 2 504 2T458 2T437 1Q420 1 420 10Q420 15 423 24Q428 43 433 45Q437 46 448 46H454Q481 46 514 49Q520 50 522 50T528 55T534 64T540 82T547 110T558 153Q565 181 569 198Q602 330 602 331T457 332H312L279 197Q245 63 245 58Q245 51 253 49T303 46H334Q340 38 340 37T337 19Q333 6 327 0H312Q275 2 178 2Q144 2 115 2T69 2T48 1Q31 1 31 10Q31 12 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"/></g><g data-mml-node="mo" transform="translate(3110.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"/></g><g data-mml-node="mn" transform="translate(4110.4,0)"><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z"/><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z" transform="translate(500,0)"/><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(1000,0)"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(1500,0)"/></g><g data-mml-node="mi" transform="translate(6110.4,0)"><path data-c="1D43B" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 219 683Q260 681 355 681Q389 681 418 681T463 682T483 682Q499 682 499 672Q499 670 497 658Q492 641 487 638H485Q483 638 480 638T473 638T464 637T455 637Q416 636 405 634T387 623Q384 619 355 500Q348 474 340 442T328 395L324 380Q324 378 469 378H614L615 381Q615 384 646 504Q674 619 674 627T617 637Q594 637 587 639T580 648Q580 650 582 660Q586 677 588 679T604 682Q609 682 646 681T740 680Q802 680 835 681T871 682Q888 682 888 672Q888 645 876 638H874Q872 638 869 638T862 638T853 637T844 637Q805 636 794 634T776 623Q773 618 704 340T634 58Q634 51 638 51Q646 48 692 46H723Q729 38 729 37T726 19Q722 6 716 0H701Q664 2 567 2Q533 2 504 2T458 2T437 1Q420 1 420 10Q420 15 423 24Q428 43 433 45Q437 46 448 46H454Q481 46 514 49Q520 50 522 50T528 55T534 64T540 82T547 110T558 153Q565 181 569 198Q602 330 602 331T457 332H312L279 197Q245 63 245 58Q245 51 253 49T303 46H334Q340 38 340 37T337 19Q333 6 327 0H312Q275 2 178 2Q144 2 115 2T69 2T48 1Q31 1 31 10Q31 12 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"/></g><g data-mml-node="mo" transform="translate(7276.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mn" transform="translate(8332,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"/></g><g data-mml-node="mi" transform="translate(9332,0)"><path data-c="1D43B" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 219 683Q260 681 355 681Q389 681 418 681T463 682T483 682Q499 682 499 672Q499 670 497 658Q492 641 487 638H485Q483 638 480 638T473 638T464 637T455 637Q416 636 405 634T387 623Q384 619 355 500Q348 474 340 442T328 395L324 380Q324 378 469 378H614L615 381Q615 384 646 504Q674 619 674 627T617 637Q594 637 587 639T580 648Q580 650 582 660Q586 677 588 679T604 682Q609 682 646 681T740 680Q802 680 835 681T871 682Q888 682 888 672Q888 645 876 638H874Q872 638 869 638T862 638T853 637T844 637Q805 636 794 634T776 623Q773 618 704 340T634 58Q634 51 638 51Q646 48 692 46H723Q729 38 729 37T726 19Q722 6 716 0H701Q664 2 567 2Q533 2 504 2T458 2T437 1Q420 1 420 10Q420 15 423 24Q428 43 433 45Q437 46 448 46H454Q481 46 514 49Q520 50 522 50T528 55T534 64T540 82T547 110T558 153Q565 181 569 198Q602 330 602 331T457 332H312L279 197Q245 63 245 58Q245 51 253 49T303 46H334Q340 38 340 37T337 19Q333 6 327 0H312Q275 2 178 2Q144 2 115 2T69 2T48 1Q31 1 31 10Q31 12 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"/></g><g data-mml-node="mo" transform="translate(10497.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mn" transform="translate(11553.6,0)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(500,0)"/></g><g data-mml-node="mi" transform="translate(12553.6,0)"><path data-c="1D437" d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z"/></g></g></g></svg></mjx-container></span>可以得到在这里事实上每个内存块可以视为是<code>32B</code>. 而
+Qnode, Quece 结构体也因为其对齐策略(不同于<code>malloc</code>,
+结构体按照最大成员的整数倍进行对齐),
+在代码上下文中事实上被视为<code>sizeof(Qnode)==16</code>和<code>sizeof(Quece)==24</code>.</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>-<span class="hljs-built_in">exec</span> x/32xb q<br>0x5555555598f0: 0x10 0x99 0x55 0x55 0x55 0x55 0x00 0x00 <span class="hljs-comment">#98f7 # q-&gt;f的指针</span><br>0x5555555598f8: 0x10 0x99 0x55 0x55 0x55 0x55 0x00 0x00 <span class="hljs-comment">#98ff # q-&gt;r的指针</span><br>0x555555559900: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#9907 # size 和 padding</span><br>0x555555559908: 0x21 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#990f</span><br><br></code></pre></td></tr></table></figure>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/btjRMx8A5ZTlymH.png" alt="1-1.png" class="lazyload">
+<figcaption aria-hidden="true">1-1.png</figcaption>
+</figure>
+<h4><span id="enq">EnQ</span></h4>
+<p>在对 InitQ 进行初步检查后, 暂时认为 InitQ 是没有问题的. 下面对 EnQ
+排查. <strong>第一次</strong>进入 EnQ 时, EnQ 所做工作如下:</p>
+<ol type="1">
+<li>创建一个新结点
+<code>new_qnode</code><em>(指向<code>0x9930</code>)</em></li>
+<li>初始化新结点的 <code>e</code><em>(值为1, 树根结点)</em> 和
+<code>next</code><em>(初始化为指向<code>NULL</code>).</em></li>
+<li>把原链表尾结点的 <code>next</code> 指向新结点,
+也就是让<code>q-&gt;r-&gt;next(指向NULL)</code>指向新结点所在的内存区域<code>*new_qnode(0x9930)</code>,
+这一步将 <code>new_qnode</code> 上传到链上.
+属于使用尾指针的尾插法(1/2).</li>
+<li>把队列尾指针 <code>q-&gt;r</code>
+指向新结点(原<code>0x9910</code>--后<code>0x9930</code>),
+补全链表的指针关系. 属于使用尾指针的尾插法(2/2).</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>-<span class="hljs-built_in">exec</span> x/32xb q-&gt;f<br>0x555555559910: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#9817 # q-&gt;f-&gt;e (空值. 这个值不重要)</span><br>0x555555559918: 0x10 0x99 0x55 0x55 0x55 0x55 0x00 0x00 <span class="hljs-comment">#981f # q-&gt;f-&gt;next (本来初始化为0. 在本回合第一结点(树根)首次入队后指向了第一结点)</span><br>0x555555559920: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#9927 </span><br>0x555555559928: 0x21 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#992f</span><br><span class="hljs-comment"># 这块内存是经过第一次 EnQ 的链表头结点</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>-<span class="hljs-built_in">exec</span> x/32xb q-&gt;r<br>0x555555559930: 0x00 0x93 0x55 0x55 0x55 0x55 0x00 0x00 <span class="hljs-comment">#9837 # q-&gt;r-&gt;e      (这个值不重要. 主要是对应链表结点--二茬树结点用)</span><br>0x555555559938: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#983f # q-&gt;r-&gt;next (这个指针很重要)</span><br>0x555555559940: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#9947 </span><br>0x555555559948: 0x21 0x00 0x00 0x00 0x00 0x00 0x00 0x00 <span class="hljs-comment">#994f</span><br><span class="hljs-comment"># 这块内存是经过第一次 EnQ 的链表第一结点, 二叉树根节点</span><br></code></pre></td></tr></table></figure>
+<p>这里对比看下图中代码和调试内容也没什么问题. 故排除 EnQ 的嫌疑.</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/QjVLpx5T8XlF9mU.png" alt="1-2.png" class="lazyload"> <img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/ts6g9BnKRviqA3a.png" alt="1-3.png" class="lazyload"> <img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/oM9PQmNcjp5kwnO.png" alt="1-4.png" class="lazyload"> <img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/ZVMtJyzkl1pdCYn.png" alt="1-5.png" class="lazyload"></p>
+<h3><span id="deq">DeQ</span></h3>
+<p>首先来说明一点, 出队的时候需要先判断2个特殊情况: 队长为 0 和 1
+的时候. 对这俩情况做俩不同的处理:</p>
+<ul>
+<li><strong>0:</strong>当队长判断为<strong>0</strong>,
+实际操作如下.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-keyword">if</span> (q-&gt;f == q-&gt;r)<br>{<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>}<br><span class="hljs-comment">// 特殊情况1: 队元素为0个</span><br><span class="hljs-comment">// 判空(当原本的队列事实上只有0个元素, r指向f)</span><br><br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>1:</strong>当队长判断为<strong>1</strong>,
+实际操作如下.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>TreeNode *rec;<br><span class="hljs-comment">// res用来暂存待会用来弹出的树节点</span><br>QNode *p = q-&gt;f-&gt;next;<br>rec = p-&gt;e;<br>q-&gt;f-&gt;next = p-&gt;next;<br><span class="hljs-comment">// 头指针next跟上新的队首</span><br><span class="hljs-keyword">if</span> (q-&gt;r == p)    <span class="hljs-comment">// 这里是错误连锁反应的关键</span><br>E&gt; {q-&gt;f = q-&gt;r;} <span class="hljs-comment">// 这里是错误的源头. 显然赋值反了</span><br>    <span class="hljs-comment">// {q-&gt;r = q-&gt;f;} // 正解</span><br><span class="hljs-comment">// 如果队长&gt;1, 尾指针不用动(一般的). </span><br><span class="hljs-comment">// 但当队长判断为1(尾指针指向的结点马上要被出队), 那就得让尾指针指向头结点完成复位(回到初始化状态).</span><br><span class="hljs-built_in">free</span>(p);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br><span class="hljs-keyword">return</span> rec;<br><br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>一般的:</strong>当队长判断为<strong>非0也非1</strong>,
+实际操作如下.</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>TreeNode *rec;<br><span class="hljs-comment">// res用来暂存待会用来弹出的树结点</span><br>QNode *p = q-&gt;f-&gt;next;<br><span class="hljs-comment">// p指向第一结点</span><br>rec = p-&gt;e;<br><span class="hljs-comment">// 拿出队头数据(f指向带头单链表的头结点)</span><br>q-&gt;f-&gt;next = p-&gt;next;<br><span class="hljs-comment">// 头指针next跟上新的队首</span><br><span class="hljs-built_in">free</span>(p);<br><span class="hljs-comment">// 在链上删除旧的队头结点(出队)</span><br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br><span class="hljs-keyword">return</span> rec;<br><br></code></pre></td></tr></table></figure>
+<p>在对 EnQ 进行初步检查后, 暂时认为 EnQ 是没有问题的. 下面对 DeQ 排查.
+<strong>第一次</strong>进入 DeQ 时, DeQ 所做工作如下:</p>
+<ol type="1">
+<li>对队列链表判空. 空则不需要出队.<em>(这里队长为1, 1!=0)</em></li>
+<li>对队列链表判是否长度为1.
+创建一个临时的<code>Qnode* p</code>指向第一结点(<code>0x9930</code>).</li>
+<li>拿出第一结点数据.</li>
+<li>让头结点的 next 指针<code>q-&gt;f-&gt;next</code>指向"第二结点".
+<ul>
+<li>一般地: 如果第二结点存在, 指向它.</li>
+<li><strong>本次的情况:</strong>如果第二结点不存在, 指向它(空).
+并且操作<code>q-&gt;r</code>指向<code>q-&gt;f</code>(bug在这一步赋值反了).</li>
+</ul></li>
+<li>释放<code>p</code>所指向的内存, 也就是原本的第一结点.
+现在原本的第二结点接班变成新的第一结点了(一般地).</li>
+</ol>
+<h3><span id="第一回合的总结说明">第一回合的总结说明</span></h3>
+<p>从代码片段显然可以看出,
+在操作<code>q-&gt;r</code>指向<code>q-&gt;f</code>过程中赋值写反了.
+由于<strong>这句写反的赋值,
+以及对是否队长为1的判断(队尾r是否和f-&gt;next指向同一区域)</strong>导致在第一回合的结尾彻底改变了链表的结构,
+抛弃了头结点. 而后续也产生了连锁错, 造成了<strong>速度为每回合 0~1
+个结点的内存泄漏</strong>.</p>
+<p>现在来详细说明一下第一回合内改变链表结构的过程:
+链表的头结点由于<code>f</code>和<code>r</code>和<code>*(0x9910)-&gt;next</code>都跑去指向了即将被删除的第一结点,
+整个链表于是断开, 分成两个结构:</p>
+<ol type="1">
+<li>头[0x9910]-&gt;NULL (没有指针指向它. 正常情况下<code>s-&gt;f</code>,
+<code>s-&gt;r</code>应当指向它)
+<ul>
+<li>作为再也无法被访问的内存区域, 这里也是内存泄漏的开始.</li>
+</ul></li>
+<li>非法区域[0x9930] (<code>s-&gt;f</code>, <code>s-&gt;r</code>,
+<code>p</code>)
+<ul>
+<li>注: <em>在本次运行的情况下</em>,
+这个非法区域(0x9930)事实上还保留着之前第一结点的内容(<code>free</code>函数只会标记该区域为空闲,
+不会将其全体写0). 因此下面两个表达式也成立:</li>
+<li>*(0x9930)-&gt;e==1</li>
+<li>*(0x9930)-&gt;next==NULL</li>
+</ul></li>
+</ol>
+<p>这里附图当时的分析. 需要注意的是图中一些名词比如野指针的用法错误了.
+这里应当是<strong>悬浮指针</strong>. 以及现在所到达的位置.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>Quece *q;<br>TreeNode *p;<br><span class="hljs-comment">// 出队结点</span><br>InitQ(&amp;q, <span class="hljs-number">20</span>);<br>EnQ(q, root);<br><span class="hljs-comment">// 1. 根节点放进队列</span><br><span class="hljs-keyword">while</span> (!isE(q))<br>{<br>    pQ(q);<br>    p = DeQ(q);<br>-&gt;  visit_1(p); <span class="hljs-comment">// 这里是第一回合最后到达的位置. </span><br>    <span class="hljs-keyword">if</span> (p-&gt;l)<br>    {<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d 左孩子为%d\n"</span>, p-&gt;id, p-&gt;l-&gt;id);<br>        EnQ(q, p-&gt;l);<br>    }<br>    <span class="hljs-keyword">if</span> (p-&gt;r)<br>    {<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d 右孩子为%d\n"</span>, p-&gt;id, p-&gt;r-&gt;id);<br>        EnQ(q, p-&gt;r);<br>    }<br>    <span class="hljs-comment">// 当左/右孩子存在就入队. 因此每循环可能会入队0~2个结点.</span><br>}<br><br></code></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/51dCtLhHgIvOlja.png" alt="1-6.png" class="lazyload"> <img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/8oKRUHGMm7SNFz6.png" alt="1-7.png" class="lazyload"></p>
+<h2><span id="分析第二回合">分析(第二回合)</span></h2>
+<p>第二回合是根的左孩子结点(e=2)的入队和出队.</p>
+<h3><span id="enq">EnQ</span></h3>
+<p>当 hit break 到 EnQ 内部的时候, 第二回合的 EnQ 也将进行
+<em>创建-尾插</em> 的两个工作. 这时候 EnQ 要运行两次, 入队 root
+的左右孩子, 也就是树的 2 和 3 结点. 下面按照入队顺序挨个看.</p>
+<h4><span id="入队树的第二结点链表第一结点">入队树的第二结点(链表第一结点)</span></h4>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/XanQOL7zUCY8ToS.png" alt="2-1.png" class="lazyload">
+<figcaption aria-hidden="true">2-1.png</figcaption>
+</figure>
+<ol type="1">
+<li><p><strong>创建过程:</strong>由图可以看到<code>new_qnode</code>被<code>malloc</code>分配到了<code>0x9930</code>所开辟的一块<code>Qnode</code>内存空间(32B).
+而巧合的是在上一回合中,
+<code>q-&gt;f</code>和<code>q-&gt;r</code>也都被错误地指向了<code>0x9930</code>.
+这样就导致队列链表的结构在新结点初始化完毕,
+并且<strong>尚未</strong>投入使用之前立刻就发生了如下的变化. 此时,
+链表主体不存在头结点, 有且仅有一个结点就是这个新生产的第一结点.
+同时也需要注意的是, <code>s-&gt;f</code>, <code>s-&gt;r</code>,
+<code>new_qnode</code>现在<strong>全都</strong>指向<code>0x9930</code>.</p>
+<ol type="1">
+<li><p>头[0x9910]-&gt;NULL (再也没有指针可以指向它)</p></li>
+<li><p>2[0x9930] (<code>s-&gt;f</code>, <code>s-&gt;r</code>,
+<code>*(0x9930)-&gt;next</code>, <code>new_qnode</code>)</p></li>
+</ol></li>
+<li><p><strong>"尾插"过程:</strong>在创建新结点完毕后,
+正常流程下要进行带头单链表的尾插操作了.
+也就是下面代码块的<code>q-&gt;r-&gt;next = new_qnode;</code>和<code>q-&gt;r = new_qnode;</code>两步.
+从前面可以看到<code>s-&gt;f</code>, <code>s-&gt;r</code>,
+<code>new_qnode</code>现在全指向<code>0x9930</code>. 因此这一通操作下来,
+几个变量值, 0x9930内存块存储的值就变成了下面这样.</p>
+<ul>
+<li>q-&gt;f, q-&gt;f-&gt;next, q-&gt;r, q-&gt;r-&gt;next, new_qnode:
+<code>0x9930</code></li>
+</ul></li>
+<li><p>总结为<strong>存在的指针域全都指向了<code>0x9930</code></strong>.
+<code>f</code>, <code>r</code>全部指向第一结点, 第一结点的 next
+指针也指向自己.</p></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-type">bool</span> <span class="hljs-title function_">EnQ</span><span class="hljs-params">(Quece *q, TreeNode *x)</span><br>{<br>    QNode *new_qnode = (QNode *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(QNode));<br>    new_qnode-&gt;e = x;<br>    new_qnode-&gt;next = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-comment">// 1. 创建--初始化一个新队列结点, 准备入队列.</span><br>B&gt;  q-&gt;r-&gt;next = new_qnode;<br>    <span class="hljs-comment">// 2. 将新结点上传到链上</span><br>    q-&gt;r = new_qnode;<br>    <span class="hljs-comment">// 3. 将队列的尾指针指向新的链尾</span><br>B&gt;  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[+]EnQ: %d\n"</span>, x-&gt;id);<br>    <span class="hljs-comment">// 打印每个入队节点的ID</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><br></code></pre></td></tr></table></figure>
+<h4><span id="入队树的第三结点链表第二结点">入队树的第三结点(链表第二结点)</span></h4>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/AtXYeT8fP6vyCO4.png" alt="2-2.png" class="lazyload">
+<figcaption aria-hidden="true">2-2.png</figcaption>
+</figure>
+<ol type="1">
+<li><p><strong>创建过程:</strong>由图可以看到<code>new_qnode</code>被<code>malloc</code>分配到了<code>0x9950</code>所开辟的一块<code>Qnode</code>内存空间(32B).
+创建过程没有太大问题.</p></li>
+<li><p><strong>尾插过程:</strong><code>q-&gt;r-&gt;next = new_qnode;</code>和<code>q-&gt;r = new_qnode;</code>两步操作,
+解除了自指, 并且把 r 指向了新结点. 为使得链表现在变成一个不带头的单链表.
+回顾全体的结点如下所示.</p>
+<ol type="1">
+<li><p>头[0x9910]-&gt;NULL (再也没有指针可以指向它)</p></li>
+<li><p>2[0x9930] (<code>s-&gt;f</code>)--&gt;3[0x9950]
+(<code>s-&gt;r</code>)--&gt;NULL</p></li>
+</ol></li>
+</ol>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/eRVUEkJBvYT5uHL.png" alt="2-3.png" class="lazyload">
+<figcaption aria-hidden="true">2-3.png</figcaption>
+</figure>
+<h3><span id="deq">DeQ</span></h3>
+<p>在树的 2 和 3 结点入队之后, 队列链表接受 DeQ 处理. 由于失去了头结点,
+q-&gt;f直接指向了第一结点,
+因此再次满足了关系式<code>q-&gt;f-&gt;next==q-&gt;r</code>.
+尽管根本不是这个关系式所期待的实际情况.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><br>TreeNode *rec;<br><span class="hljs-comment">// res用来暂存待会用来弹出的树节点</span><br>QNode *p = q-&gt;f-&gt;next;<br>rec = p-&gt;e;<br>q-&gt;f-&gt;next = p-&gt;next;<br><span class="hljs-keyword">if</span>(p==q-&gt;r)<br>    q-&gt;f=q-&gt;r;<br><span class="hljs-built_in">free</span>(p);<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">"[-]DnQ: %d\n"</span>, rec-&gt;id); <span class="hljs-comment">// 打印每个入队节点的ID</span><br><span class="hljs-keyword">return</span> rec;<br><br></code></pre></td></tr></table></figure>
+<p>经过<code>q-&gt;f-&gt;next = p-&gt;next;</code>和<code>q-&gt;f=q-&gt;r;</code>的处理,
+链表的结构发生了和第一回合一样的变化. 经过指针误操作,
+导致<code>f</code>, <code>r</code>, <code>p</code>,
+全部指向第二结点(第一回合的第一结点). 第一结点(第一回合的头结点)被丢弃,
+链表断裂再也无法被访问, 造成第二次内存泄漏. 而另一边<code>f</code>,
+<code>r</code>,
+<code>p</code>所指向的<code>0x9950</code>旋即被<code>free</code>掉,
+f和r再次变成悬浮指针. 此时链表的结构如下.</p>
+<ol type="1">
+<li><p>头[0x9910]-&gt;NULL (再也没有指针可以指向它)</p></li>
+<li><p>2[0x9930]-&gt;NULL (再也没有指针可以指向它)</p></li>
+<li><p>3[0x9950] (<code>s-&gt;f</code>,
+<code>s-&gt;r</code>)--&gt;NULL</p></li>
+</ol>
+<figure>
+<img data-fancybox="gallery" data-sizes="auto" data-src="https://s2.loli.net/2024/10/26/sVc9zMQ8kvWO4BU.png" alt="2-4.png" class="lazyload">
+<figcaption aria-hidden="true">2-4.png</figcaption>
+</figure>
+<h3><span id="第二回合的总结说明">第二回合的总结说明</span></h3>
+<p>从第二回合可以看到 bug 所形成的结构开始产生规律,
+也就是在抛掉头结点后变成了一个不带头的单链表形式, 并且在当<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.452ex;" xmlns="http://www.w3.org/2000/svg" width="24.51ex" height="2.149ex" role="img" focusable="false" viewbox="0 -750 10833.6 950"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">此</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">不</text></g><g data-mml-node="mi" transform="translate(2000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">带</text></g><g data-mml-node="mi" transform="translate(3000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">头</text></g><g data-mml-node="mi" transform="translate(4000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">单</text></g><g data-mml-node="mi" transform="translate(5000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">链</text></g><g data-mml-node="mi" transform="translate(6000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">表</text></g><g data-mml-node="mi" transform="translate(7000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">长</text></g><g data-mml-node="mi" transform="translate(8000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">度</text></g><g data-mml-node="mo" transform="translate(9277.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/></g><g data-mml-node="mn" transform="translate(10333.6,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></svg></mjx-container></span>的时候会直接把第一结点咔嚓掉.
+后面去吃饭了就没继续看了. 不过可以预测的是, 在后面的几个回合,
+当树在下一次出队动作产生之前所做出的入队无法打破单链表长度=2的局面,
+那么内存泄漏就会以每循环一个的速度持续发生. 并且层序遍历(访问 DeQ
+的返回值)由于 DeQ 的内部问题只能访问到树的右孩子.
+表现到最后就是只能访问树的最右侧(我这里写的makeTree只能造完全二叉树,
+所以是<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="12.321ex" height="1.968ex" role="img" focusable="false" viewbox="0 -676 5446 870"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/></g><g data-mml-node="mo" transform="translate(500,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="mn" transform="translate(944.7,0)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"/></g><g data-mml-node="mo" transform="translate(1444.7,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="mn" transform="translate(1889.3,0)"><path data-c="37" d="M55 458Q56 460 72 567L88 674Q88 676 108 676H128V672Q128 662 143 655T195 646T364 644H485V605L417 512Q408 500 387 472T360 435T339 403T319 367T305 330T292 284T284 230T278 162T275 80Q275 66 275 52T274 28V19Q270 2 255 -10T221 -22Q210 -22 200 -19T179 0T168 40Q168 198 265 368Q285 400 349 489L395 552H302Q128 552 119 546Q113 543 108 522T98 479L95 458V455H55V458Z"/></g><g data-mml-node="mo" transform="translate(2389.3,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="mn" transform="translate(2834,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"/><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(500,0)"/></g><g data-mml-node="mo" transform="translate(3834,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/></g><g data-mml-node="mo" transform="translate(4278.7,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"/></g><g data-mml-node="mo" transform="translate(4723.3,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"/></g><g data-mml-node="mo" transform="translate(5168,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"/></g></g></g></svg></mjx-container></span>这样一个序列).</p>
+
+	</article>
+
+	 
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/C%E8%AF%AD%E8%A8%80/" rel="tag">C语言</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a> <a class="kirafont icon-tag-fill -none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>
+		
+	</div>
+	
+	<div class="kira-post-footer">
+		
+
+		
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>
